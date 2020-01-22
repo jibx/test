@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1579672897529
+Build-Jdk: 1.8.0_232
+Built-By: dcorley
+Bundle-Description: JiBX parent shared settings
+Bundle-DocURL: http://www.jibx.org
+Bundle-License: http://jibx.sourceforge.net/jibx-license.html
+Bundle-ManifestVersion: 2
+Bundle-Name: test-person
+Bundle-SymbolicName: org.jibx.schema.test.person
+Bundle-Vendor: jibx.org
+Bundle-Version: 7.1.6
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.jibx.schema.test.person;version="7.1.6"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.6))"
+Tool: Bnd-4.2.0.201903051501
