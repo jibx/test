@@ -8,7 +8,7 @@
     <relativePath>../jibx-parent</relativePath>
   </parent>
 
-    <version>7.1.6</version>
+    <version>7.1.7-SNAPSHOT</version>
   <artifactId>org.jibx.schema.test.person</artifactId>
   <packaging>bundle</packaging>
 
@@ -19,7 +19,7 @@
     <url>https://github.com/jibx/test</url>
     <connection>scm:git:https://github.com/jibx/test</connection>
     <developerConnection>scm:git:https://github.com/jibx/test</developerConnection>
-    <tag>org.jibx.schema.test.person-7.1.6</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
