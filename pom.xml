@@ -6,7 +6,7 @@
 
   <groupId>org.jbundle.config</groupId>
   <artifactId>test</artifactId>
-  <version>7.1.12</version>
+  <version>7.1.13-SNAPSHOT</version>
 
 
     <name>jbundle-parent - Shared properties</name>
@@ -425,7 +425,7 @@
     <url>https://github.com/jibx/test</url>
     <connection>scm:git:https://github.com/jibx/test</connection>
     <developerConnection>scm:git:https://github.com/jibx/test</developerConnection>
-    <tag>test-7.1.12</tag>
+    <tag>test-7.1.10</tag>
   </scm>
 
     <licenses>
