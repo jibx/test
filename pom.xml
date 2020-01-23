@@ -8,20 +8,29 @@
   <artifactId>test</artifactId>
   <version>7.1.9-SNAPSHOT</version>
 
-  <packaging>pom</packaging>
-  <name>test - jbundle parent project</name>
-  <description>jbundle test</description>
-  
-  <url>http://www.jbundle.org</url>
 
-  <organization>
-    <name>jbundle.org</name>
+    <name>jbundle-parent - Shared properties</name>
+    <description>Top level properties and features</description>
     <url>http://www.jbundle.org</url>
-  </organization>
 
-  <prerequisites>
-   <maven>3.5.0</maven>
-  </prerequisites>
+    <organization>
+        <name>jbundle.org</name>
+        <url>http://www.jbundle.org</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>doncorley</id>
+            <name>Don Corley</name>
+            <email>don@tourgeek.com</email>
+            <url>http://www.tourgeek.com</url>
+            <timezone>-8</timezone> <!-- -8:00 PDT – Pacific Daylight Time (UTC -08:00) -->
+        </developer>
+    </developers>
+
+    <prerequisites>
+        <maven>3.5.0</maven>
+    </prerequisites>
 
     <repositories>
         <repository>
@@ -50,7 +59,7 @@
         </repository>
     </distributionManagement>
 
-  <properties>
+    <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <arguments />
 
@@ -96,9 +105,16 @@
       <javadoc.opts>-Xdoclint:none</javadoc.opts>
   </properties>
 
-  <profiles>
+    <profiles>
         <profile>
             <id>sonatype-oss-release</id>
+            <properties>
+                <releaseRepository>https://oss.sonatype.org/service/local/staging/deploy/maven2</releaseRepository> <!-- Release upload -->
+                <snapshotRepository>https://oss.sonatype.org/content/repositories/snapshots</snapshotRepository> <!-- Snapshot upload -->
+                <publicRepository>https://oss.sonatype.org/content/groups/public</publicRepository> <!-- Release access -->
+                <stagingRepository>https://oss.sonatype.org/content/groups/staging</stagingRepository> <!-- Staging access -->
+                <publicReleaseRepository>https://repo.maven.apache.org/maven2</publicReleaseRepository>	<!-- Maven central -->
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -118,9 +134,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>3.1.1</version>
-                        <configuration>
-                            <additionalOptions>${javadoc.opts}</additionalOptions>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -148,69 +161,143 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.0.0-M2</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-maven</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireMavenVersion>
+                                            <version>3.5.0</version>
+                                        </requireMavenVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
-      <properties>
-        <releaseRepository>https://oss.sonatype.org/service/local/staging/deploy/maven2</releaseRepository>
-        <snapshotRepository>https://oss.sonatype.org/content/repositories/snapshots</snapshotRepository>
-        <publicRepository>https://oss.sonatype.org/content/groups/public</publicRepository>
-        <stagingRepository>https://oss.sonatype.org/content/groups/staging</stagingRepository>
-        <publicReleaseRepository>https://repo.maven.apache.org/maven2</publicReleaseRepository>
-      </properties>
-    </profile>
-    <profile>
-        <id>local-snapshot</id>
-        <properties>
-            <snapshotRepository>https://maven.jx.tourgeek.com/repository/maven-snapshots</snapshotRepository>
-            <publicRepository>https://maven.jx.tourgeek.com/repository/maven-public</publicRepository>
-        </properties>
-    </profile>
-  </profiles>
-  
-  <developers>
-    <developer>
-      <name>Dennis Sosnoski</name>
-      <email>dms@sosnoski.com</email>
-      <url>http://www.sosnoski.co.nz</url>
-      <timezone>+13</timezone>
-    </developer>
-  </developers>
-  <contributors>
-      <contributor>
-	      <name>Dennis Sosnoski</name> <!-- So Dennis shows up on sub-projects where developer is overriden -->
-	      <email>dms@sosnoski.com</email>
-	      <url>http://www.sosnoski.co.nz</url>
-	      <timezone>+13</timezone>
-      </contributor>
-      <contributor>
-          <name>Nigel Charman</name>
-          <email>nigel.charman.nz@gmail.com</email>
-          <timezone>+13</timezone>
-      </contributor>
-      <contributor>
-          <name>Andreas Brenk</name>
-          <email>mail@andreasbrenk.com</email>
-          <url>http://andreasbrenk.com/</url>
-          <timezone>+01</timezone>
-      </contributor>
-      <contributor>
-          <name>Frank Mena</name>
-          <email>frankm.os@gmail.com</email>
-          <timezone>-08</timezone>
-      </contributor>
-      <contributor>
-          <name>Jerome Bernard</name>
-          <email>jerome.bernard@gmail.com</email>
-          <timezone>+1</timezone>
-      </contributor>
-      <contributor>
-          <name>Don Corley</name>
-          <email>don@tourgeek.com</email>
-          <url>http://www.tourgeek.com/</url>
-          <timezone>-8</timezone>
-      </contributor>
-  </contributors>
-  <inceptionYear>2005</inceptionYear>
+        </profile>
+
+        <profile>
+            <id>local-snapshot</id>
+            <properties>
+                <snapshotRepository>https://maven.jx.tourgeek.com/repository/maven-snapshots</snapshotRepository>
+                <publicRepository>https://maven.jx.tourgeek.com/repository/maven-public</publicRepository>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>   <!-- Used with exec:java for local development -->
+            <properties>
+                <jbundle.mode>dev</jbundle.mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>local</id>
+            <properties>
+                <jbundle.server />
+                <jbundle.db.local>Jdbc</jbundle.db.local>
+                <jbundle.db.remote>Jdbc</jbundle.db.remote>
+                <jbundle.db.table>Jdbc</jbundle.db.table>
+                <jbundle.messageserver>local</jbundle.messageserver>
+            </properties>
+        </profile>
+        <profile>
+            <id>tour</id>
+            <properties>
+                <systemname>tourgeek</systemname>
+            </properties>
+        </profile>
+        <profile>
+            <id>app</id>
+            <properties>
+                <systemname>app</systemname>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <systemname>test</systemname>
+            </properties>
+        </profile>
+        <profile>
+            <id>base</id>
+            <properties>
+                <systemname>base</systemname>
+            </properties>
+        </profile>
+        <profile>
+            <id>thin</id>
+            <properties>
+                <mainClass>org.jbundle.thin.Thin</mainClass>
+                <menu>Thin</menu>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>${mainClass}</mainClass>
+                            <arguments>
+<!--                                <argument>background=${jbundle.background}</argument>-->
+<!--                                <argument>backgroundcolor=${jbundle.backgroundcolor}</argument>-->
+<!--                                <argument>messageserver=${jbundle.messageserver}</argument>-->
+<!--                                <argument>databaseproduct=${jbundle.db.databaseproduct}</argument>-->
+<!--                                <argument>local=${jbundle.db.local}</argument>-->
+<!--                                <argument>remote=${jbundle.db.remote}</argument>-->
+<!--                                <argument>table=${jbundle.db.table}</argument>-->
+<!--                                <argument>systemname=${systemname}</argument>-->
+<!--                                <argument>mode=${jbundle.mode}</argument>-->
+<!--                                <argument>record=${record}</argument>-->
+<!--                                <argument>screen=${screen}</argument>-->
+<!--                                <argument>menu=${menu}</argument>-->
+<!--                                <argument>connectionType=${jbundle.connectiontype}</argument>-->
+<!--                                <argument>remotehost=${jbundle.server}</argument>-->
+<!--                                <argument>codebase=${jbundle.codebase}</argument>-->
+<!--                                <argument>language=${language}</argument>-->
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>server</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <configuration>
+                            <httpConnector>
+                                <port>8888</port>
+                                <idleTimeout>30000</idleTimeout>
+                            </httpConnector>
+                            <webAppSourceDirectory>${project.build.directory}/${project.artifactId}-${project.version}
+                            </webAppSourceDirectory>
+                            <webApp>
+                                <contextPath>/</contextPath>
+                            </webApp>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
   <build>
     <pluginManagement>
@@ -362,15 +449,15 @@
     <tag>jbundle-parent-7.1.5</tag>
   </scm>
 
-  <licenses>
-    <license>
-      <name>BSD</name>
-      <url>http://jbundle.sourceforge.net/jbundle-license.html</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>The GNU General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <issueManagement>
+    <issueManagement>
     <system>jira</system>
     <url>http://jira.codehaus.org/browse/jbundle</url>
   </issueManagement>
